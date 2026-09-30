@@ -1,0 +1,58 @@
+{
+  "name": "genpark-long-horizon-autonomous-task-resumption-skill",
+  "version": "1.0.0",
+  "description": "Long-Horizon Autonomous Task Checkpoint & Resumption Engine (inspired by Persistent Consumer & Enterprise Agents). Provides cryptographic event-sourcing state persistence, idempotency key deduplication, scheduled timeout heartbeats, human-in-the-loop pause-and-resume tokens, and fail-safe recovery.",
+  "tools": [
+    {
+      "name": "manage_long_horizon_resumption",
+      "description": "Manage persistent multi-day autonomous agent execution: create resumable sessions, record idempotent state events, suspend for user inputs, and restore execution safely.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create_task_session",
+              "record_step_checkpoint",
+              "suspend_for_approval",
+              "resume_task_session",
+              "get_session_state"
+            ],
+            "description": "Lifecycle resumption action."
+          },
+          "session_id": {
+            "type": "string",
+            "description": "Persistent task session identifier."
+          },
+          "task_goal": {
+            "type": "string",
+            "description": "High-level goal description."
+          },
+          "idempotency_key": {
+            "type": "string",
+            "description": "Unique deduplication key for operations."
+          },
+          "step_name": {
+            "type": "string",
+            "description": "Name of executed step."
+          },
+          "step_payload": {
+            "type": "object",
+            "description": "Step state payload."
+          },
+          "approval_prompt": {
+            "type": "string",
+            "description": "Prompt for user or human-in-the-loop decision."
+          },
+          "resume_token": {
+            "type": "string",
+            "description": "Authorization token to resume suspended task."
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ]
+}
